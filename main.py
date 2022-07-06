@@ -34,9 +34,7 @@ def count_clicks(bitlink: str, headers: Dict[str, str]) -> str:
 def shorten_link(url: str, headers: Dict[str, str]) -> str:
     api_url = 'https://api-ssl.bitly.com/v4/shorten'
     payload = {
-        'group_guid': 'Bm6363FiCth',
-        'domain': 'bit.ly',
-        'long_url': f'{url}'
+        'long_url': url
     }
     resp = requests.post(api_url,
                          headers=headers,
