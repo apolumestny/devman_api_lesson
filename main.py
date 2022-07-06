@@ -6,12 +6,6 @@ from dotenv import load_dotenv
 from typing import Dict, Optional
 from urllib.parse import urlparse
 
-load_dotenv()
-
-
-def generate_headers(token: str) -> Dict[str, str]:
-    return {'Authorization': f'Bearer {token}'}
-
 
 def is_bitlink(url: str, headers: Dict[str, str]) -> bool:
     api_url = 'https://api-ssl.bitly.com/v4/bitlinks/'
@@ -56,7 +50,7 @@ def shorten_link(url: str, headers: Dict[str, str]) -> str:
 def main(url: str):
 
     token = os.getenv('BIT_ACCESS_TOKEN')
-    headers = generate_headers(token)
+    headers = {'Authorization': f'Bearer {token}'}
     try:
         bitlink = parse_url(url)
         if is_bitlink(bitlink, headers):
@@ -71,6 +65,8 @@ def main(url: str):
 
 
 if __name__ == '__main__':
+    load_dotenv()
+
     parser = argparse.ArgumentParser()
     parser.add_argument('url', help='URL to be shorten')
     args = parser.parse_args()
